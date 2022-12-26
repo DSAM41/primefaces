@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Layout Learning</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div class="card">
+			<p:dataTable var="product" value="#{user.users}">
+				<p:column headerText="id">
+					<h:outputText value="#{product.id}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="firstName">
+					<h:outputText value="#{product.firstName}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="lastName">
+					<h:outputText value="#{product.lastName}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="email">
+					<h:outputText value="#{product.email}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="delete">
+					<p:commandButton title="Delete" value="Delete" styleClass="ui-button-danger"
+						actionListener="#{remove.remove_data(product)}" ajax="false" />
+				</p:column>
+			</p:dataTable>
+			
+		</div>
+	</h:form>
+</h:body>
+</html>
