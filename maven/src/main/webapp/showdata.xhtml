@@ -9,7 +9,7 @@
 	<title>Layout Learning</title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id="listagem">
 		<div class="card">
 			<p:dataTable var="product" value="#{user.users}">
 				<p:column headerText="id">
@@ -28,13 +28,48 @@
 					<h:outputText value="#{product.email}"></h:outputText>
 				</p:column>
 
+				<p:column headerText="edit">
+					<p:commandButton oncomplete="PF('detalheLivro').show()"
+						value="edit" process="@this" update=":detalhe">
+						<f:setPropertyActionListener value="#{product}"
+							target="#{send_data_modal.user}" />
+					</p:commandButton>
+				</p:column>
+
 				<p:column headerText="delete">
-					<p:commandButton title="Delete" value="Delete" styleClass="ui-button-danger"
-						actionListener="#{remove.remove_data(product)}" ajax="false" />
+					<p:commandButton value="Delete" styleClass="ui-button-danger"
+						actionListener="#{remove.remove_data(product)}">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
-			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
 		</div>
 	</h:form>
+
+	<p:dialog modal="true" height="400" width="400"
+		widgetVar="detalheLivro">
+		<h:form id="detalhe">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="firstName: " />
+				<p:inputText value="#{send_data_modal.user.firstName}" />
+				<h:outputLabel value="lastName: " />
+				<p:inputText value="#{send_data_modal.user.lastName}"></p:inputText>
+				<h:outputLabel value="email: " />
+				<p:inputText value="#{send_data_modal.user.email}"></p:inputText>
+			</h:panelGrid>
+			<p:commandButton value="save" action="#{send_data_modal.save()}"
+				process="@form" update="@form :listagem"
+				oncomplete="PF('detalheLivro').hide()" />
+		</h:form>
+	</p:dialog>
+
+
 </h:body>
 </html>

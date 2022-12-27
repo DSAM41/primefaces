@@ -26,12 +26,12 @@ public class User implements Serializable {
 			uses = UserService.getUsers();
 			hs.setAttribute("list", uses);
 		} else {
-			System.out.println("list!=null");
+//			System.out.println("list!=null");
 		}
 	}
 
 	public List<User_test> getUsers() {
-		System.out.println("list");
+//		System.out.println("list");
 		uses = (List<User_test>) hs.getAttribute("list");
 		return uses;
 	}
